@@ -5,4 +5,12 @@ public class Vehicle {
     String medium;
     int engineCapacity;
     int seatCapacity;
+
+    public void startVehicle() {
+        System.out.println("Vehicle Started...");
+    }
+
+    public void stopVehicle() {
+        System.out.println("Vehicle Stopped...");
+    }
 }

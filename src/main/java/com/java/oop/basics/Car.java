@@ -7,6 +7,19 @@ public class Car {
     int seatCapacity;
     int numWheels;
 
+    // Methods / Functions
+    // <ACCESS_MODIFIER> <RETURN_TYPE> <METHOD_NAME>(...arguments) {
+    // ...
+    // ...
+    // }
+    public void startCar() {
+        System.out.println("Car Started...");
+    }
+
+    public void move(int speed) {
+        System.out.println("Car Started Moving at "+speed+" km/hr");
+    }
+
     public static void main(String[] args) {
         Car santro = new Car(); // new - 1. Reserve Memory, 2. Instantiate
         santro.brand = "Hyundai";
@@ -14,6 +27,8 @@ public class Car {
         santro.numWheels = 4;
         santro.seatCapacity = 5;
         santro.engineCapacity = 1100;
+        santro.startCar();
+        santro.move(30);
 
         Car creta = new Car();
         creta.brand = "Hyundai";
