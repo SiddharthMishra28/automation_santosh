@@ -1,6 +1,6 @@
 package com.java.oop.inheritance;
 
-public class Car extends Vehicle {
+public class Car extends Vehicle { // IS-A RELATIONSHIP
     String brand;
     String color;
     int numWheels;
