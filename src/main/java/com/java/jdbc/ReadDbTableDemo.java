@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
+/**
+ * <p>This class is a demo class for jdbc connection</p>
+ */
 public class ReadDbTableDemo {
     public static void main(String[] args) {
         String url = "jdbc:mysql://mysql-360ffc1d-time-series-data-mesh.h.aivencloud.com:20150/ecomm";
