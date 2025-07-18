@@ -12,26 +12,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ExcelReader {
-    public static void main(String[] args) {
-        File file = new File("Students.xlsx");
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            Workbook studentsWb = new XSSFWorkbook(fis); // USE XSSFWorkbook for xlsx and HSSFWorkbook for xls
-            Sheet studentsSheet = studentsWb.getSheet("Students");
-            int rowCount = studentsSheet.getLastRowNum();
-            int colCount = studentsSheet.getRow(0).getLastCellNum();
-            System.out.println("Row Count: "+rowCount);
-            System.out.println("Col Count: "+colCount);
-            for(int i=0; i<=rowCount; i++) {
-                Row activeRow = studentsSheet.getRow(i);
-                for(int j=0; j<colCount; j++) {
-                    String activeCellData = activeRow.getCell(j).getStringCellValue();
-                    System.out.print(activeCellData+" | ");
-                }
-                System.out.println();
+    public static void main(String[] args) throws IOException {
+        FileInputStream fis = new FileInputStream(new File("Students.xlsx"));
+        Workbook wb = new XSSFWorkbook(fis);
+        Sheet sheet = wb.getSheet("Students");
+        int numRows = sheet.getPhysicalNumberOfRows();
+        int numCols = sheet.getRow(0).getLastCellNum();
+        System.out.println("Row Count : "+numRows);
+        System.out.println("Col Count : "+numCols);
+        for(int i=0; i<numRows; i++) {
+            for(int j=0; j<numCols; j++) {
+                String data = sheet.getRow(i).getCell(j).getStringCellValue();
+                System.out.print(data+ " | ");
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println();
         }
     }
 }
