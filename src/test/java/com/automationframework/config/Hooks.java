@@ -1,5 +1,9 @@
 package com.automationframework.config;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -20,35 +24,42 @@ import java.util.Properties;
 public class Hooks {
     public static Properties config;
     public WebDriver driver;
+    public static ExtentReports exentReports;
+    public static ExtentSparkReporter spark;
+    public ExtentTest test;
 
     @BeforeSuite
     public static void beforeSuite() {
         readConfig();
+        exentReports = new ExtentReports();
+        spark = new ExtentSparkReporter(config.getProperty("report_directory"));
+        exentReports.attachReporter(spark);
     }
 
     @BeforeTest
     public void beforeTest() {
-        this.launchBrowser();
     }
 
     @BeforeMethod
     public void beforeMethod() {
-
+        test = exentReports.createTest("Sample Test");
+        this.launchBrowser();
+        test.log(Status.INFO, "Browser Launched Successfully");
     }
 
     @AfterMethod
     public void afterMethod() {
-
+        this.closeBrowser();
     }
 
     @AfterTest
     public void afterTest() {
-        this.closeBrowser();
+
     }
 
     @AfterSuite
     public static void afterSuite() {
-
+        exentReports.flush();
     }
 
     /**

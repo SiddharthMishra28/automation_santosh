@@ -1,8 +1,16 @@
 package com.automationframework.utils;
 
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class CommonUtils {
 
@@ -72,5 +80,30 @@ public class CommonUtils {
      */
     public void waitForXSeconds(int seconds) throws InterruptedException {
         Thread.sleep(seconds);
+    }
+
+    /**
+     * <p>Reads a provided Excel data source and converts to String[][]</p>
+     * @param excelWorkBookPath
+     * @param sheet
+     * @return String[][]
+     */
+    public String[][] getExcelData(String excelWorkBookPath, String sheet) {
+        try {
+            FileInputStream fis = new FileInputStream(new File(excelWorkBookPath));
+            Workbook wb = new XSSFWorkbook(fis);
+            Sheet worksheet = wb.getSheet(sheet);
+            int rowCount = worksheet.getLastRowNum();
+            int colCount = worksheet.getRow(0).getLastCellNum();
+            String[][] excelData = new String[rowCount][colCount];
+            for(int i=0; i<rowCount; i++) {
+                for(int j=0; j<colCount; j++) {
+                    excelData[i][j] = worksheet.getRow(i).getCell(j).getStringCellValue();
+                }
+            }
+            return excelData;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
