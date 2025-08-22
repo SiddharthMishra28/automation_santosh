@@ -24,16 +24,10 @@ import java.util.Properties;
 public class Hooks {
     public static Properties config;
     public WebDriver driver;
-    public static ExtentReports exentReports;
-    public static ExtentSparkReporter spark;
-    public ExtentTest test;
 
     @BeforeSuite
     public static void beforeSuite() {
         readConfig();
-        exentReports = new ExtentReports();
-        spark = new ExtentSparkReporter(config.getProperty("report_directory"));
-        exentReports.attachReporter(spark);
     }
 
     @BeforeTest
@@ -42,9 +36,6 @@ public class Hooks {
 
     @BeforeMethod
     public void beforeMethod() {
-        test = exentReports.createTest("Sample Test");
-        this.launchBrowser();
-        test.log(Status.INFO, "Browser Launched Successfully");
     }
 
     @AfterMethod
@@ -59,7 +50,6 @@ public class Hooks {
 
     @AfterSuite
     public static void afterSuite() {
-        exentReports.flush();
     }
 
     /**

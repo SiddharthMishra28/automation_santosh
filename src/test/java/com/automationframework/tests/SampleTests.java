@@ -17,7 +17,6 @@ public class SampleTests extends Hooks {
     public void testOne() {
         driver.get("https://www.google.com");
         Assert.assertEquals(driver.getTitle(), "Google");
-        test.log(Status.PASS, "Title Verified. Script Passed");
     }
 
     @Test(dataProvider = "login_provider")
@@ -29,7 +28,6 @@ public class SampleTests extends Hooks {
         utils.clickElement(LoginPage.loginButton);
         utils.waitForXSeconds(2);
         utils.validateConditionTrue(true, utils.ifElementDisplayed(BankManagerHomePage.newCustomerLink));
-        test.log(Status.PASS, "Validation Successful");
     }
 
     @DataProvider(name = "login_provider")
